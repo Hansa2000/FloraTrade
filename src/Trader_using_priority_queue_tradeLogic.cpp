@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <chrono>
 using namespace std;
 
 struct Order {
@@ -23,6 +24,7 @@ struct TradeDetails {
     string execStatus;
     int quantity;
     double price;
+    double duration;
 };
 
 // Comparator for the buy queue
@@ -48,7 +50,7 @@ void writeTradesToCSV(const vector<TradeDetails>& trades, const string& filename
     }
 
     // Write CSV header
-    outputFile << "Order ID,Client ID,Instrument,Side,Exec Status,Quantity,Price" << endl;
+    outputFile << "Order ID,Client ID,Instrument,Side,Exec Status,Quantity,Price,Duration" << endl;
 
     // Write trade details
     for (const TradeDetails& trade : trades) {
@@ -58,7 +60,8 @@ void writeTradesToCSV(const vector<TradeDetails>& trades, const string& filename
                    << trade.side << ","
                    << trade.execStatus << ","
                    << trade.quantity << ","
-                   << trade.price << endl; 
+                   << trade.price << ","
+                   << trade.duration << endl; 
     }
 
     outputFile.close();
@@ -67,6 +70,9 @@ void writeTradesToCSV(const vector<TradeDetails>& trades, const string& filename
 
 
 int main() {
+    //start measuring time
+    auto start = chrono::high_resolution_clock::now();
+
     ifstream inputFile("order.csv");
     if (!inputFile.is_open()) {
         cerr << "Failed to open the CSV file." << endl;
@@ -168,6 +174,8 @@ int main() {
                             trade_.execStatus = "Fill";
                             trade_.quantity =  trade.quantity;
                             trade_.price = trade.price = buyOrder.price;
+                            auto end = chrono::high_resolution_clock::now();
+                            trade_.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
                             trades.push_back(trade_);
                             trade.execStatus = "pFill";
                         }
@@ -180,6 +188,8 @@ int main() {
                             trade_.execStatus = "Fill";
                             trade_.quantity =  trade.quantity;
                             trade_.price = trade.price = sellOrder.price;
+                            auto end = chrono::high_resolution_clock::now();
+                            trade_.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
                             trades.push_back(trade_);
                             trade.execStatus = "Fill";
                         }
@@ -201,6 +211,8 @@ int main() {
                             trade_.execStatus = "pFill";
                             trade_.quantity =  trade.quantity;
                             trade_.price = trade.price = buyOrder.price;
+                            auto end = chrono::high_resolution_clock::now();
+                            trade_.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
                             trades.push_back(trade_);
                             trade.execStatus = "Fill";
                         }
@@ -213,6 +225,8 @@ int main() {
                             trade_.execStatus = "Fill";
                             trade_.quantity =  trade.quantity;
                             trade_.price = trade.price = sellOrder.price;
+                            auto end = chrono::high_resolution_clock::now();
+                            trade_.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
                             trades.push_back(trade_);
                             trade.execStatus = "pFill";
                         }
@@ -228,6 +242,8 @@ int main() {
                             trade_.execStatus = "Fill";
                             trade_.quantity =  trade.quantity;
                             trade_.price = trade.price = buyOrder.price;
+                            auto end = chrono::high_resolution_clock::now();
+                            trade_.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
                             trades.push_back(trade_);
                         }
                         else{
@@ -239,6 +255,8 @@ int main() {
                             trade_.execStatus = "Fill";
                             trade_.quantity =  trade.quantity;
                             trade_.price = trade.price = sellOrder.price;
+                            auto end = chrono::high_resolution_clock::now();
+                            trade_.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
                             trades.push_back(trade_);
                         }
                         trade.execStatus = "Fill";
@@ -246,6 +264,8 @@ int main() {
                 
             
                     // Store trade details in a container or log file
+                    auto end = chrono::high_resolution_clock::now();
+                    trade.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
                     trades.push_back(trade);
             
             }

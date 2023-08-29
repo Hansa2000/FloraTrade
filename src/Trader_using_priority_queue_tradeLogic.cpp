@@ -73,7 +73,11 @@ int main() {
     //start measuring time
     auto start = chrono::high_resolution_clock::now();
 
-    ifstream inputFile("order.csv");
+    //string file_name = "order.csv";               //for testing logic errors
+    //string file_name = "order_million.csv";       //for testing timing
+    string file_name = "order_mem_overload.csv";    //for testing memory handling
+
+    ifstream inputFile(file_name);
     if (!inputFile.is_open()) {
         cerr << "Failed to open the CSV file." << endl;
         return 1;
@@ -117,6 +121,10 @@ int main() {
 
         
     }
+    //time to read csv file
+    auto end = chrono::high_resolution_clock::now();
+    auto read_csv_duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
+    
 
     // Now 'orders' vector contains all the orders from the CSV file
     // You can process them further or print them if needed
@@ -127,6 +135,7 @@ int main() {
     priority_queue<Order, vector<Order>, SellComparator> sellQueue;
     vector<TradeDetails> trades;
 
+    auto process_start = chrono::high_resolution_clock::now();
     for (const Order& order : orders) {
 
         // Record trade details
@@ -272,8 +281,16 @@ int main() {
         
     }
 
+    //time to process trades
+    auto process_end = chrono::high_resolution_clock::now();
+    auto process_csv_duration = chrono::duration_cast<chrono::microseconds>(process_end - process_start).count();
+
     // Output csv file
+    auto write_start = chrono::high_resolution_clock::now();
     writeTradesToCSV(trades, "executed_trades.csv");
+    //time to read csv file
+    auto write_end = chrono::high_resolution_clock::now();
+    auto write_csv_duration = chrono::duration_cast<chrono::microseconds>(write_end - write_start).count();
 
     // Print the buy queue
     cout << "Buy Queue (Highest Price First):" << endl;
@@ -288,6 +305,18 @@ int main() {
         cout << "Price: " << sellQueue.top().price << "\tQuantity: " << sellQueue.top().quantity << endl;
         sellQueue.pop();
     }
+
+    //execution report
+    cout << "_________________________________________________________________" << endl;
+    cout << "-----------------------------------------------------------------" << endl;
+    cout << "\t\tEXECUTION REPORT" << endl;
+    cout << "_________________________________________________________________" << endl;
+    cout << "-----------------------------------------------------------------" << endl;
+    
+    cout << "  Time to read csv file\t\t | " << read_csv_duration<< " time units.\n";
+    cout << "  Time to write csv file\t | " << write_csv_duration<< " time units.\n";
+    cout << "  Time to process csv file\t | " << process_csv_duration<< " time units.\n";
+  
 
     return 0;
 }

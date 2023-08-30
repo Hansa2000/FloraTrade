@@ -7,75 +7,15 @@
 #include <chrono>
 using namespace std;
 
-struct Order {
-    string orderID;
-    string clientID;
-    string instrument;
-    string side;
-    double price;
-    int quantity;
-};
-
-struct TradeDetails {
-    string orderID;
-    string clientID;
-    string instrument;
-    string side;
-    string execStatus;
-    int quantity;
-    double price;
-    double duration;
-};
-
-// Comparator for the buy queue
-struct BuyComparator {
-    bool operator()(const Order& a, const Order& b) const {
-        return a.price < b.price; // Highest price has highest priority
-    }
-};
-
-// Comparator for the sell queue
-struct SellComparator {
-    bool operator()(const Order& a, const Order& b) const {
-        return a.price > b.price; // Least price has highest priority
-    }
-};
-
-// writing report to csv
-void writeTradesToCSV(const vector<TradeDetails>& trades, const string& filename) {
-    ofstream outputFile(filename);
-    if (!outputFile.is_open()) {
-        cerr << "Failed to open the output CSV file." << endl;
-        return;
-    }
-
-    // Write CSV header
-    outputFile << "Order ID,Client ID,Instrument,Side,Exec Status,Quantity,Price,Duration" << endl;
-
-    // Write trade details
-    for (const TradeDetails& trade : trades) {
-        outputFile << trade.orderID << ","
-                   << trade.clientID << ","
-                   << trade.instrument << ","
-                   << trade.side << ","
-                   << trade.execStatus << ","
-                   << trade.quantity << ","
-                   << trade.price << ","
-                   << trade.duration << endl; 
-    }
-
-    outputFile.close();
-    cout << "Trades written to " << filename << " successfully." << endl;
-}
-
+#include "utils.h"
 
 int main() {
     //start measuring time
     auto start = chrono::high_resolution_clock::now();
 
     //string file_name = "order.csv";               //for testing logic errors
-    //string file_name = "order_million.csv";       //for testing timing
-    string file_name = "order_mem_overload.csv";    //for testing memory handling
+    string file_name = "order_extended.csv";       //for testing timing
+    //string file_name = "order_mem_overload.csv";    //for testing memory handling
 
     ifstream inputFile(file_name);
     if (!inputFile.is_open()) {
@@ -147,6 +87,8 @@ int main() {
             trade.execStatus = "New";
             trade.quantity =  order.quantity;
             trade.price = order.price;
+            auto end = chrono::high_resolution_clock::now();
+            trade.duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
 
         if (order.side == "1") {
             buyQueue.push(order);
@@ -306,16 +248,7 @@ int main() {
         sellQueue.pop();
     }
 
-    //execution report
-    cout << "_________________________________________________________________" << endl;
-    cout << "-----------------------------------------------------------------" << endl;
-    cout << "\t\tEXECUTION REPORT" << endl;
-    cout << "_________________________________________________________________" << endl;
-    cout << "-----------------------------------------------------------------" << endl;
-    
-    cout << "  Time to read csv file\t\t | " << read_csv_duration<< " time units.\n";
-    cout << "  Time to write csv file\t | " << write_csv_duration<< " time units.\n";
-    cout << "  Time to process csv file\t | " << process_csv_duration<< " time units.\n";
+    exe_report(read_csv_duration,write_csv_duration,process_csv_duration);
   
 
     return 0;

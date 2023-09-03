@@ -40,4 +40,4 @@ To do the status few rules have to be followed,
 
 
  ## Instruction to `run`
-
+The `.cpp` file contains a listing of input files that are commented out. Select the Required input `.csv` file and `run`.

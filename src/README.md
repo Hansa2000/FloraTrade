@@ -18,4 +18,4 @@ Created `executed_trades.csv`
 ![Screenshot 2023-09-04 024647](https://github.com/Hansa2000/FloraTrade/assets/92619641/be07a316-297e-4498-8c88-427fde3f557f)
 
 
-All the above versions are not capable of providing the expected complete report. To see improvements that have been made click [here](Flora)
+All the above versions are not capable of providing the expected complete report. To see improvements that have been made click [here](FloraTrade/README.md)

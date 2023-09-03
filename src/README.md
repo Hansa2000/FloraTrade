@@ -6,5 +6,3 @@ There are few Versions of the program included.
 - [Trader.cpp](Trader.cpp) : Contains the basic executable program without any advanced algorithms. Complexity of the project also abstractec to obtain the basic functionality
 
 - [Trader.cpp](Trader.cpp)
-
-# You can check out the newest version [here](Floratrade/multi_threading)

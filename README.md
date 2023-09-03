@@ -38,4 +38,11 @@ To do the status few rules have to be followed,
 
  ## Instruction to `run`
 
-There are two versions of code inside the `src` file and the `multi_threading` file. The newest updated version is in the [multi_threading](multi_threading/README.md) folder. Further instructions will be included [inside](multi_threading/).
+There are few versions of code inside the `src` file and using multi threading we have include two versions inside `multi_threading` file and `FloraTrade` file. 
+
+- [src](src\README.md) contain few versions of initial attempt to overcome the above problem. There step by step new features have been introduiced to reach the desired outcome.
+- [multi_threading](multi_threading\README.md) Tried out the concept of multi-threading for the first time in C++.
+- The newest updated version is in the [FloraTrade](FloraTrade) folder. Further instructions will be included [inside](FloraTrade/README.md).
+
+
+## Sample Output

@@ -38,4 +38,4 @@ To do the status few rules have to be followed,
 
  ## Instruction to `run`
 
-There are Two versions of code inside the `src` file and `multi_threading` file.Newest Version is in the [a relative link](path%20with%20spaces/other_file.md) is the newest updated version.
+There are two versions of code inside the `src` file and the `multi_threading` file. The newest updated version is in the [multi_threading](multi_threading/README.md) folder. Further instructions will be included [inside](multi_threading/).

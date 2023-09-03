@@ -31,6 +31,13 @@ To do the status few rules have to be followed,
   * [x] Quantity is not a multiple of 10, not an integer or not in between 10 and 1000.
   * [x] price is not double or not positive.
 - [x] If rejected a seperate column will be printed with the reason.
-- [x] Time taken for each trade will be in the final report.
+- [x] Time taken for each trade is included in a seperate column.
+
 
  In the Process we follow a multithreading algorithm to improve the efficiency of the system. 1000 orders at a time will be read and queue for excecution. Meanwhile anouther 1000 will be read. Two `.h` files were created as `process.h` and `util.h` to fascilitate this process. 
+
+
+
+
+ ## Instruction to `run`
+

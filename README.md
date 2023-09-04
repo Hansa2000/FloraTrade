@@ -55,3 +55,8 @@ The Output 'executed_order.csv`
 ![Screenshot 2023-09-04 090630](https://github.com/Hansa2000/FloraTrade/assets/92619641/07616561-3376-469d-a4a8-9e4df24de2ab)
 
 Check it out by running the `.cpp` file [here](FloraTrade/FloraTrade.cpp)
+
+## Contributors
+
+- Hansa Marasinghe [https://github.com/Hansa2000](https://github.com/Hansa2000)
+- Dilupa Vinod [https://github.com/D-Vinod](https://github.com/D-Vinod)

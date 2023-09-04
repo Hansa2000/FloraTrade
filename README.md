@@ -46,3 +46,12 @@ There are few versions of code inside the `src` file and using multi threading w
 
 
 ## Sample Output
+The input `order.csv`
+
+![Screenshot 2023-09-04 090658](https://github.com/Hansa2000/FloraTrade/assets/92619641/cc6f320d-cb67-4250-b99c-8044d54a864f)
+
+The Output 'executed_order.csv`
+
+![Screenshot 2023-09-04 090630](https://github.com/Hansa2000/FloraTrade/assets/92619641/07616561-3376-469d-a4a8-9e4df24de2ab)
+
+Check it out yourself [link]()
